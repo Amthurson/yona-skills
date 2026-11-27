@@ -1,6 +1,6 @@
 """Real local Git origins and Windows PowerShell; no GitHub or business API calls."""
 from pathlib import Path
-import json,os,shutil,subprocess,tempfile,unittest
+import json,os,re,shutil,subprocess,tempfile,unittest
 ROOT=Path(__file__).resolve().parents[1]
 PUBLIC='https://github.com/Amthurson/yona-skills.git'
 GITLAB='https://gitlab.example.test/customer/yona-skills.git'
@@ -16,6 +16,9 @@ class ManagedUpdateTest(unittest.TestCase):
             relative=p.relative_to(ROOT)
             if '.git'in relative.parts or '__pycache__'in relative.parts or not p.is_file():continue
             target=self.author/relative;target.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(p,target)
+        # Fixed synthetic versions keep update/rollback tests independent of the release being authored.
+        manifest=self.author/'skill-release.json';value=json.loads(manifest.read_text(encoding='utf8'));value['version']='0.2.0';manifest.write_text(json.dumps(value),encoding='utf8')
+        skill=self.author/'SKILL.md';skill.write_text(re.sub(r'(?m)^  version: .*$', '  version: 0.2.0',skill.read_text(encoding='utf8')),encoding='utf8')
         self.git(self.author,'init','-b','main');self.git(self.author,'config','user.name','SYNTHETIC QA');self.git(self.author,'config','user.email','qa@example.test');self.git(self.author,'config','commit.gpgsign','false')
         self.git(self.author,'add','.');self.git(self.author,'commit','-m','Synthetic initial release');self.git(self.author,'tag','v0.2.0');self.git(self.author,'remote','add','origin',str(self.bare));self.git(self.author,'push','origin','main','--tags')
         self.env=os.environ.copy();self.env.update({'GIT_CONFIG_COUNT':'1','GIT_CONFIG_KEY_0':'url.'+self.bare.as_uri()+'.insteadOf','GIT_CONFIG_VALUE_0':PUBLIC,'GIT_TERMINAL_PROMPT':'0'})

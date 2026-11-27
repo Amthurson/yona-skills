@@ -1,13 +1,14 @@
 {
   "schema": 1,
   "skill": "yona-supplier-catalog",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "repository": "https://github.com/Amthurson/yona-skills.git",
   "stableBranch": "main",
   "compatibility": {
     "mcp": "yona_enterprise",
     "baseline": "Complete source attributes in specification, maximum 2000 UTF-16 units",
     "attributes-v1": "Independent attributes only on verified compatible servers, maximum 4000 UTF-16 units",
-    "updatesChangeServer": false
+    "updatesChangeServer": false,
+    "publication-v1": "Reviewed public projection tools require a matching company server/client upgrade, saved main image and faithful English/Brazilian-Portuguese/Spanish product translations. Skill updates alone do not enable publication."
   }
 }

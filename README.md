@@ -27,7 +27,7 @@ powershell -NoProfile -File .\yona-skills-source\scripts\install.ps1
 powershell -NoProfile -File "$env:USERPROFILE\.agents\skills\yona-supplier-catalog\scripts\update.ps1"
 ```
 
-更新前要求Skill工作副本没有本地修改；正常更新只快进。回退标签使用`-Version 0.2.0`。Codex检测Skill变化后使用新规范；未刷新时新开一轮或重启。商品是否已入库、是否已同步到巴西，仍以实际MCP和前端查询回执为准。
+更新前要求Skill工作副本没有本地修改；正常更新只快进。回退标签使用`-Version 0.3.0`。Codex检测Skill变化后使用新规范；未刷新时新开一轮或重启。商品是否已入库、是否已同步到巴西，仍以实际MCP和前端查询回执为准。
 
 旧业务服务也可使用完整属性规范：将源属性保存在规格文本中；独立属性字段只用于已验证支持的服务器。更新Skill不会自动完成服务器升级、RAGFlow接入或历史商品补录。
 
@@ -47,3 +47,5 @@ python -m unittest discover -s tests -v
 将Git历史与版本标签迁到客户指定仓库，在GitLab更新manifest中的`repository`。客户运行同一个更新脚本并传`-Origin <客户GitLab仓库地址>`即可切换。脚本先检查目标Skill身份；认证使用客户自己的Git凭据，不迁移账号令牌。详见[更新约定](references/updates.md)。
 
 本仓库仅提供通用规范、合成模板、更新脚本和离线测试，不放客户真实商品、图片、服务器地址、配置或凭据。
+
+官网发布规范见 [官网发布与验收](references/publication.md)。新发布工具需要配套公司服务及员工 MCP 客户端；更新 Skill 本身不升级服务器或开通发布权限。

@@ -27,7 +27,7 @@ args = ["C:/YONA-Catalog-Tools/enterprise.py", "--config", "C:/YONA-Private/ente
 4. 已入库产品用 `enterprise_product_edit_snapshot` 读取当前字段与版本，再 `enterprise_product_save` 提交完整产品字段、当前版本、修改来源。该工具替换产品事实；保留原值中不需修改的字段，不可发送报价、联系方式等字段来覆盖历史。冲突时重读合并；不以旧版本覆盖别人改动。用 `enterprise_product_changes` 核对前后值和来源。
 5. 用 `enterprise_supplier_sku_save` 建立产品→厂家→厂家 SKU 关联。每个产品可有多家厂家；同一家厂家的同一 SKU 只能指向一个产品。SKU 保留大小写和前导零。第一次不用 `link_id`；修改时先读 `enterprise_product_suppliers`，传 `link_id` 与当前 `version`。来源记录页码、行号或商家链接。
 6. `enterprise_supplier_products` 反查该员工有权查看的关联产品，再用产品详情核对字段。解除错误关联使用具体 link ID 与版本；不删除产品或供应商档案。
-7. 更新供应商先读 `enterprise_supplier_detail`，再用当前版本提交完整 profile。编辑已公开的资料会回到草稿；本 MCP 不公开发布、不修改访问权限。
+7. 更新供应商先读 `enterprise_supplier_detail`，再用当前版本提交完整 profile。编辑已公开的资料会回到草稿；供应商档案工具不公开发布厂家档案、不修改访问权限。商品官网上架、更新和撤回按 [官网发布与验收](publication.md) 使用独立工具，需要用户明确的公开操作指令。
 8. 已入库产品换主图用 `enterprise_product_image_upload`。两种图片工具都传 `image_root` 内的相对路径，仅支持 PNG/JPEG、最大 5MB。本地厂家目录图片用真实 `source_locator`（文件名、页码、厂家说明等）；网上原图可传 `source_page_url` 和 `source_image_url` 两个真实 HTTPS 地址。不能编造链接满足来源校验。图片必须对应当前产品/厂家 SKU，不用相似商品图。`image_root` 与会话目录分开；上传后回读图片 SHA、产品详情和列表。未配置图片目录时两种上传工具均隐藏。
 
 图片上传或确认发生超时，先回读该候选及版本、状态和主图，或读取已返回的产品 ID，再决定是否重试。确认已成功后不能通过重新创建候选“补传图片”。SKU 关联失败时读取该产品已有的关联后补齐，不能再创建一条产品。普通网页来源图片仍使用原副本格式；包含本地目录来源的图片需要支持 schema 3 的接收端，不能对旧接收端假报同步成功。

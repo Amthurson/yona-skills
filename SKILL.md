@@ -2,7 +2,7 @@
 name: yona-supplier-catalog
 description: 在 YONA 芋道通过 MCP 整理、导入或维护供应商、商品完整属性、主图和 SKU，核对前端搜索；或更新这套 YONA Skill。原始目录进 RAGFlow 时分别验收文档检索，保留来源与权限，不推定技术适配。
 metadata:
-  version: 0.2.0
+  version: 0.3.0
 ---
 
 # YONA 供应商与商品资料
@@ -11,6 +11,7 @@ metadata:
 
 - 更新 YONA Skill、查版本、切换 GitLab：读 [版本与更新](references/updates.md)。更新只改变规范，不升级公司/巴西服务、不修改 MCP 配置；之后回读当前 Skill 和本任务参考。
 - 商品、供应商、SKU 业务录入：读 [企业业务操作](references/enterprise.md) 和 [完整属性与搜索验收](references/product-quality.md)，使用员工已配置的 `enterprise_*` 工具。
+- 将已确认商品上架、更新或撤回官网：读 [官网发布与验收](references/publication.md)。企业入库和 `/library/` 私有查询不会自动发布到 `/products/` 官网目录；沿用用户明确指定的发布范围。
 - 原件上传 RAGFlow、资料检索：再走下述文档流程。未配置 `catalog_*` 时不能报文档已上传；ES 命中不能称为 RAGFlow 问答已接通。
 
 ## 完整商品资料
