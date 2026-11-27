@@ -2,7 +2,7 @@
 name: yona-supplier-catalog
 description: 在 YONA 芋道通过 MCP 整理、导入或维护供应商、商品完整属性、主图和 SKU，核对前端搜索；或更新这套 YONA Skill。原始目录进 RAGFlow 时分别验收文档检索，保留来源与权限，不推定技术适配。
 metadata:
-  version: 0.3.0
+  version: 0.3.1
 ---
 
 # YONA 供应商与商品资料
