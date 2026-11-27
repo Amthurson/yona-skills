@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.env
+.env.*
+*.local.json
+*session*
+*token*
+credentials/
+secrets/
+customer-data/
+work-data/

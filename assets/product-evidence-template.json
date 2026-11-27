@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "synthetic_example": true,
+  "products": [{
+    "record_key": "DEMO-SUPPLIER/DEMO-TYRE-0001",
+    "source_locator": "SYNTHETIC catalogue.pdf p2; not a real customer product",
+    "source_attribute_count": 3,
+    "fields": {"name": "SYNTHETIC demo tyre", "supplierSku": "DEMO-TYRE-0001", "brand": "DEMO", "specification": "SYNTHETIC 90/90-12", "oeNumbers": "000123"},
+    "attribute_inventory": [
+      {"name": "材质", "value": "合成示例橡胶", "scope": "sku", "status": "supplier_provided", "source_locator": "SYNTHETIC p2 row1"},
+      {"name": "轮胎类型", "value": "半热熔", "scope": "offer", "status": "pending_review", "source_locator": "SYNTHETIC shared offer title"},
+      {"name": "重量", "value": "2600", "unit": "g", "scope": "sku", "status": "supplier_provided", "source_locator": "SYNTHETIC p2 row3"}
+    ]
+  }]
+}
