@@ -14,7 +14,7 @@ function Invoke-YonaGit {
         $taskExitCode = $LASTEXITCODE
         $taskError = $taskOutput -join "`n"
         $taskReason = 'git_failed'
-        if ($taskError -match '(?i)permission denied|access is denied|拒绝访问|权限不足|operation not permitted') { $taskReason = 'permission_denied' }
+        if ($taskError -match '(?i)permission denied|access is denied|\u62d2\u7edd\u8bbf\u95ee|\u6743\u9650\u4e0d\u8db3|operation not permitted') { $taskReason = 'permission_denied' }
         elseif ($taskError -match '(?i)dubious ownership|safe.directory') { $taskReason = 'worktree_ownership' }
         elseif ($taskError -match '(?i)index.lock|config.lock|another git process') { $taskReason = 'repository_locked' }
         elseif ($taskError -match '(?i)not a git repository|cannot change to|could not find') { $taskReason = 'repository_unavailable' }

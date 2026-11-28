@@ -16,6 +16,7 @@ def validate(root):
         assert not p.is_symlink() and p.stat().st_size<1024*1024,relative
         assert p.suffix in ('.md','.json','.py','.ps1','.csv')or p.name in ('.gitignore','.gitattributes')or relative.as_posix()=='.github/workflows/validate.yml',relative
         text=p.read_text(encoding='utf-8-sig')
+        if p.suffix=='.ps1':assert text.isascii(),('PowerShell scripts must parse on non-Chinese Windows locales',relative)
         assert not re.search(r'(?:sk-[A-Za-z0-9_-]{20,}|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,})',text),relative
         if p.suffix=='.md':
             for link in re.findall(r'\]\(([^)]+)\)',text):
