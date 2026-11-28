@@ -1,8 +1,9 @@
-param([string]$Version, [string]$Origin, [string]$StateRoot, [switch]$CheckOnly)
+param([string]$Version, [string]$Origin, [string]$StateRoot, [switch]$CheckOnly, [switch]$TrustExistingRepository)
 $ErrorActionPreference = 'Stop'
 . (Join-Path $PSScriptRoot 'common.ps1')
 $taskRepository = [IO.Path]::GetFullPath((Split-Path $PSScriptRoot -Parent))
 Assert-YonaPlainPath $taskRepository
+if ($TrustExistingRepository) { Enable-YonaRepositoryTrust $taskRepository }
 if (-not (Test-Path -LiteralPath (Join-Path $taskRepository '.git'))) { throw 'Copied Skill: use install.ps1 to create a managed installation first.' }
 if (Invoke-YonaGit $taskRepository @('status', '--porcelain', '--untracked-files=all')) { throw 'Local Skill changes found. They are preserved; update from a clean working copy.' }
 $taskOld = Read-YonaRelease $taskRepository

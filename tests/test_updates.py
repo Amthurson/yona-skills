@@ -72,5 +72,15 @@ class ManagedUpdateTest(unittest.TestCase):
     def test_unpublished_main_is_not_installed(self):
         self.install();old=self.git(self.client,'rev-parse','HEAD');self.advance(published=False)
         self.update(success=False);self.assertEqual(old,self.git(self.client,'rev-parse','HEAD'))
+    def test_explicit_exact_repository_trust_updates_without_global_configuration(self):
+        self.install();self.advance();global_file=self.base/'isolated-global.gitconfig';global_file.write_text('# SYNTHETIC global config retained\n');self.env['GIT_CONFIG_GLOBAL']=str(global_file)
+        result=self.update('-TrustExistingRepository');self.assertEqual('0.2.1',result['version'])
+        self.assertEqual('# SYNTHETIC global config retained\n',global_file.read_text())
+        self.assertNotIn('safe.directory',self.git(self.client,'config','--local','--list'))
+    def test_exact_repository_trust_still_rejects_foreign_origin_and_dirty_files(self):
+        self.install();p=self.client/'README.md';p.write_text('SYNTHETIC customization retained')
+        self.update('-TrustExistingRepository',success=False);self.assertEqual('SYNTHETIC customization retained',p.read_text())
+        self.git(self.client,'config','remote.origin.url','https://github.com/example/foreign.git')
+        result=self.update('-TrustExistingRepository',success=False);self.assertIn('origin differs',result.stderr+result.stdout)
 
 if __name__=='__main__':unittest.main()
